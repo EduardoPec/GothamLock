@@ -30,4 +30,12 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	} 
+	
+	@ExceptionHandler(SecurityException.class)
+	public ResponseEntity<StandardError> security(SecurityException e, HttpServletRequest request) {
+		String error = "Acesso Negado";
+		HttpStatus status = HttpStatus.FORBIDDEN;
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
 }

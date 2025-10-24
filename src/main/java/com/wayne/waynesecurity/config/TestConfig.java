@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.wayne.waynesecurity.model.AccessLog;
 import com.wayne.waynesecurity.model.Inventory;
@@ -33,14 +34,19 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private AccessLogRepository accessLogRepository;
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
+		String encodedPassword = passwordEncoder.encode("123");
+		
 		// === USUÁRIOS ===
-		User batman = new User(null, "Bruce Wayne", "123", "bruce@wayne.com", Role.ADMIN_SEGURANCA);
-        User alfred = new User(null, "Alfred Pennyworth", "123", "alfred@wayne.com", Role.GERENTE);
-        User robin = new User(null, "Dick Grayson", "123", "dick@wayne.com", Role.FUNCIONARIO);
+		User batman = new User(null, "Bruce Wayne", encodedPassword, "bruce@wayne.com", Role.ADMIN_SEGURANCA);
+        User alfred = new User(null, "Alfred Pennyworth", encodedPassword, "alfred@wayne.com", Role.GERENTE);
+        User robin = new User(null, "Dick Grayson", encodedPassword, "dick@wayne.com", Role.FUNCIONARIO);
         
         userRepository.saveAll(Arrays.asList(batman, alfred, robin));
         
@@ -53,8 +59,8 @@ public class TestConfig implements CommandLineRunner {
         inventoryRepository.saveAll(Arrays.asList(batmobile, batwing, batarang, grapnel));
         
         // === LOGS DE ACESSO ===
-        AccessLog entradaBatcave = new AccessLog(null, AccessArea.SALA_BATCAVERNA, AccessType.ENTRADA, AccessResult.AUTORIZADO, Instant.parse("2025-06-20T19:53:07Z"), batman);
-        AccessLog saidaBatcave = new AccessLog(null, AccessArea.SALA_BATCAVERNA, AccessType.SAIDA, AccessResult.AUTORIZADO, Instant.parse("2025-06-20T16:35:10Z"), batman);
+        AccessLog entradaBatcave = new AccessLog(null, AccessArea.SALA_BATMAN, AccessType.ENTRADA, AccessResult.AUTORIZADO, Instant.parse("2025-06-20T19:53:07Z"), batman);
+        AccessLog saidaBatcave = new AccessLog(null, AccessArea.SALA_BATMAN, AccessType.SAIDA, AccessResult.AUTORIZADO, Instant.parse("2025-06-20T16:35:10Z"), batman);
         AccessLog negadoLab = new AccessLog(null, AccessArea.LABORATORIO, AccessType.ENTRADA, AccessResult.NEGADO, Instant.parse("2025-06-23T22:10:22Z"), robin);
         AccessLog alfredArmazem = new AccessLog(null, AccessArea.ARMAZEM, AccessType.ENTRADA, AccessResult.AUTORIZADO, Instant.parse("2025-07-20T14:40:35Z"), alfred);
         

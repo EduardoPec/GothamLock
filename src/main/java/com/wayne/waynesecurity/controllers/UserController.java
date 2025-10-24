@@ -56,4 +56,10 @@ public class UserController {
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@PostMapping(value = "/{id}/access-area/{area}")
+    public ResponseEntity<Void> enterArea(@PathVariable Long id, @PathVariable String area) {
+        service.enterArea(id, area); 
+        return ResponseEntity.ok().build();
+    }
 }

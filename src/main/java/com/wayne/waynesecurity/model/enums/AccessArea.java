@@ -1,7 +1,7 @@
 package com.wayne.waynesecurity.model.enums;
 
 public enum AccessArea {
-	SALA_BATCAVERNA(1),
+	SALA_BATMAN(1),
     LABORATORIO(2),
     ARMAZEM(3),
     GARAGEM(4),
