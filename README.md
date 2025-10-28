@@ -157,7 +157,7 @@ A autenticação é protegida via **Spring Security**, com senhas criptografadas
 
 ## 🧠 Boas Práticas Aplicadas
 
-O projeto **Wayne Security** foi desenvolvido seguindo padrões modernos de arquitetura e boas práticas de desenvolvimento com **Spring Boot**, garantindo legibilidade, segurança e escalabilidade do código.
+O projeto **Gotham Lock** foi desenvolvido seguindo padrões modernos de arquitetura e boas práticas de desenvolvimento com **Spring Boot**, garantindo legibilidade, segurança e escalabilidade do código.
 
 ### 🔹 Organização e Arquitetura
 - Separação clara entre camadas **Controller → Service → Repository**, garantindo coesão e desacoplamento.
@@ -194,7 +194,7 @@ O projeto segue os princípios de **Clean Code**, **SOLID** e **Boas Práticas R
 
 ## 🦾 Próximos Passos
 
-O projeto **Wayne Security** já está totalmente funcional, mas novas melhorias estão planejadas para torná-lo ainda mais robusto, seguro e escalável.  
+O projeto **Gotham Lock** já está totalmente funcional, mas novas melhorias estão planejadas para torná-lo ainda mais robusto, seguro e escalável.  
 
 ### 🔹 Melhorias Técnicas
 - Implementar autenticação e autorização via **JWT (JSON Web Token)** utilizando a propriedade já definida `jjwt.version = 0.12.3`.
@@ -212,7 +212,7 @@ O projeto **Wayne Security** já está totalmente funcional, mas novas melhorias
 ---
 
 💡 **Objetivo Futuro:**  
-Transformar o **Wayne Security** em uma plataforma completa de monitoramento corporativo, com dashboards dinâmicos, autenticação JWT, relatórios exportáveis e integração com banco de dados PostgreSQL.
+Transformar o **Gotham Lock** em uma plataforma completa de monitoramento corporativo, com dashboards dinâmicos, autenticação JWT, relatórios exportáveis e integração com banco de dados PostgreSQL.
 
 ---
 
