@@ -1,6 +1,6 @@
-# 🦇 Wayne Security System
+# 🦇 Gotham Lock
 
-**Wayne Security** é uma aplicação web full stack desenvolvida para as **Indústrias Wayne**, com o objetivo de gerenciar o **controle de acesso a áreas restritas**, supervisionar o **inventário de recursos** e registrar **logs de segurança** de forma moderna, escalável e confiável.
+**Gotham Lock** é uma aplicação web full stack desenvolvida para as **Indústrias Wayne**, com o objetivo de gerenciar o **controle de acesso a áreas restritas**, supervisionar o **inventário de recursos** e registrar **logs de segurança** de forma moderna, escalável e confiável.
 
 O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Spring Data JPA**, com **banco H2** para testes e um **frontend em HTML, CSS e JavaScript** inspirado na identidade visual das Indústrias Wayne 🦇.
 
