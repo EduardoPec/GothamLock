@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayne Security - Inventário</title>
+    <link rel="stylesheet" href="css/dashboard.css"> 
+    <link rel="stylesheet" href="css/inventory.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="logo-branding" style="margin-bottom: 40px;">
+                <img src="img/Batman-Logo.png" alt="Batman Logo">
+                <h1 style="font-size: 24px;">Gotham Lock</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="inventory.html" class="active" id="inventoryManagementLink"><i class="fas fa-box-open"></i> Inventário</a> 
+                <a href="users.html" id="userManagementLink"><i class="fas fa-users"></i> Usuários</a>
+                <a href="accesslogs.html"><i class="fas fa-list-alt"></i> Logs de Acesso</a>
+            </nav>
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Gerenciamento de Inventário</h1>
+                <div class="user-info">
+                    <p id="welcomeUser">Carregando...</p>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h3 id="formTitle"><i class="fas fa-plus-circle"></i> Cadastrar Novo Item</h3>
+                <form id="inventoryForm">
+                    <input type="hidden" id="inventoryId">
+                    <div class="input-group">
+                        <label for="inventoryName">Nome do Item</label>
+                        <input type="text" id="inventoryName" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="inventoryType">Tipo</label>
+                        <select id="inventoryType" required>
+                            <option value="EQUIPAMENTO">EQUIPAMENTO</option>
+                            <option value="VEICULO">VEICULO</option>
+                            <option value="DISPOSITIVO">DISPOSITIVO</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="inventoryStatus">Status</label>
+                        <select id="inventoryStatus" required>
+                            <option value="DISPONIVEL">DISPONÍVEL</option>
+                            <option value="EM_USO">EM USO</option>
+                            <option value="MANUTENCAO">MANUTENÇÃO</option>
+                        </select>
+                    </div>
+                    
+                    <div id="inventoryErrorMessage" class="error-message"></div>
+
+                    <button type="submit" class="action-button primary-button"><strong>Salvar Item</strong></button>
+                </form>
+            </div>
+
+            <div class="card-table">
+                <h3><i class="fas fa-boxes"></i> Itens no Inventário</h3>
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="5">Carregando lista de inventário...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/inventory.js"></script> </body>
+</html>

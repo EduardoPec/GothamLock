@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+:root {
+    --color-dark: #121212;
+    --color-darker: #000000;
+    --color-primary: #FFCC00; 
+    --color-text: #E0E0E0;
+    --color-text-secondary: #555555;
+}
+
+.card-table {
+    background-color: #2e2e2e;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--color-text);
+}
+
+.card-table h3 {
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+#accessLogTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+}
+#accessLogTable th, #accessLogTable td {
+    border: 1px solid #3a3a3a;
+    padding: 12px;
+    text-align: left;
+}
+#accessLogTable th {
+    background-color: #1a1a1a;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+#accessLogTable tbody tr:nth-child(even) {
+    background-color: #222222;
+}
+#accessLogTable tbody tr:hover {
+    background-color: #333333;
+}
+
+.log-denied {
+    color: #ff4d4f; 
+    font-weight: bold;
+}
+.log-authorized {
+    color: #3cb371; 
+    font-weight: bold;
+}
+
+.error-message {
+    color: #ff4d4f; 
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ff4d4f;
+    border-radius: 4px;
+    background-color: #331111;
+    white-space: pre-line;
+    display: none; 
+}

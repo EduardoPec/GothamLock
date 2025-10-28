@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+:root {
+    --color-dark: #121212;
+    --color-darker: #000000;
+    --color-primary: #FFCC00; 
+    --color-text: #E0E0E0;
+    --color-text-secondary: #555555;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: var(--color-darker);
+}
+
+.login-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.form-area {
+    flex: 0 0 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-dark);
+    padding: 40px;
+    color: var(--color-text);
+}
+
+.visual-area {
+    flex: 0 0 60%;
+    background-color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .form-area {
+        flex: 1;
+    }
+    .visual-area {
+        display: none;
+    }
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.logo-branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.logo-branding img {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+    filter: invert(80%) sepia(46%) saturate(845%) hue-rotate(359deg) brightness(103%) contrast(104%);
+}
+
+.logo-branding h1 {
+    font-size: 24px;
+    color: var(--color-primary);
+}
+
+.login-form h1 {
+    color: var(--color-primary);
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.login-form h2 {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    background-color: #2e2e2e;
+    border: 2px solid #555555;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.input-field:focus-within {
+    border-color: var(--color-primary);
+}
+
+.icon-input {
+    color: var(--color-primary);
+    padding: 10px;
+}
+
+.input-field input {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    outline: none;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 30px;
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: #FFD740;
+}
+
+.error-message {
+    color: #ff4d4f; 
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ff4d4f;
+    border-radius: 4px;
+    background-color: #331111;
+    white-space: pre-line;
+    display: none; 
+}
+
+.bat-logo i {
+    font-size: 250px;
+    color: var(--color-dark); 
+}
+
+.bat-logo img {
+    width: 80%;
+    max-width: 450px;
+    height: auto;
+}

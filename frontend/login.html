@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gotham Lock - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="form-area">
+            <div class="login-form">
+                <div class="logo-branding">
+                    <img src="img/Batman-Logo.png" alt="Batman Logo">
+                    <h1>Gotham Lock</h1>
+                </div>
+
+                <h2>Sign in to Wayne Security System!</h2>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-field">
+                            <i class="fas fa-envelope icon-input"></i>
+                            <input type="email" id="email" value="bruce@wayne.com" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-field">
+                            <i class="fas fa-key icon-input"></i>
+                            <input type="password" id="password" value="123" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <div id="errorMessage" class="error-message"></div>
+
+                    <button type="submit" class="login-button">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="visual-area">
+            <div class="bat-logo">
+                <img src="img/Batman-Logo.png" alt="Batman Logo">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

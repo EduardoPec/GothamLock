@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+:root {
+    --color-dark: #121212;
+    --color-darker: #000000;
+    --color-primary: #FFCC00; 
+    --color-text: #E0E0E0;
+    --color-text-secondary: #555555;
+}
+
+.form-card, .card-table {
+    background-color: #2e2e2e;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--color-text);
+}
+
+.form-card h3, .card-table h3 {
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.input-group label {
+    display: block;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-group input[type="text"],
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    background-color: #121212; 
+    border: 1px solid var(--color-text-secondary);
+    color: var(--color-text);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.action-button {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.primary-button {
+    background-color: var(--color-primary);
+    color: var(--color-darker);
+}
+
+.primary-button:hover {
+    background-color: #FFD700;
+}
+
+.error-message {
+    color: #ff4d4f; 
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ff4d4f;
+    border-radius: 4px;
+    background-color: #331111;
+    white-space: pre-line;
+    display: none; 
+}
+
+#inventoryTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#inventoryTable th, #inventoryTable td {
+    border: 1px solid #3a3a3a;
+    padding: 12px;
+    text-align: left;
+}
+
+#inventoryTable th {
+    background-color: #1a1a1a;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+#inventoryTable tbody tr:nth-child(even) {
+    background-color: #222222;
+}
+
+#inventoryTable tbody tr:hover {
+    background-color: #333333;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-right: 8px;
+    transition: color 0.2s;
+}
+
+.edit-btn { color: #00bfff; } 
+.delete-btn { color: #ff4d4f; } 
+.action-btn:hover { opacity: 0.7; }
