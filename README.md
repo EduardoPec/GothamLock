@@ -6,25 +6,6 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 
 ---
 
-## 🖼️ Interface do Sistema
-
-### 🔐 Login
-![Login - Gotham Lock](./frontend/img/telaLogin.png)
-
-### 📊 Dashboard
-![Dashboard - Gotham Lock](./frontend/img/telaDashboard.png)
-
-### 🧰 Inventário
-![Inventário - Gotham Lock](./frontend/img/telaInventario.png)
-
-### 👥 Usuários
-![Usuários - Gotham Lock](./frontend/img/telaUsuarios.png)
-
-### 📋 Logs de Acesso
-![Logs de Acesso - Gotham Lock](./frontend/img/telaLogs.png)
-
----
-
 ## 🚀 Tecnologias Utilizadas
 
 ### 🖥️ Backend
