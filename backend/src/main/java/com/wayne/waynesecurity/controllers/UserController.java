@@ -33,8 +33,8 @@ public class UserController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
-		User obj = service.findById(id);
-        UserResponseDTO response = UserResponseDTO.fromEntity(obj);
+		User user = service.findById(id);
+        UserResponseDTO response = UserResponseDTO.fromEntity(user);
 		return ResponseEntity.ok().body(response);
 	}
 	
@@ -59,8 +59,8 @@ public class UserController {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UserRequestDTO request) {
-        User obj = request.toEntity();
-		User updateUser = service.update(id, obj);
+        User user = request.toEntity();
+		User updateUser = service.update(id, user);
         UserResponseDTO response = UserResponseDTO.fromEntity(updateUser);
 		return ResponseEntity.ok().body(response);
 	}

@@ -1,6 +1,7 @@
 package com.wayne.waynesecurity.controllers;
 
 import com.wayne.waynesecurity.model.AccessLog;
+import com.wayne.waynesecurity.model.dto.AccessLogResponseDTO;
 import com.wayne.waynesecurity.services.AccessLogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +22,18 @@ public class AccessLogController {
     }
 
     @GetMapping
-	public ResponseEntity<List<AccessLog>> findAll() {
-		List<AccessLog> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+	public ResponseEntity<List<AccessLogResponseDTO>> findAll() {
+		List<AccessLog> accessLogs = service.findAll();
+        List<AccessLogResponseDTO> response = accessLogs.stream()
+                .map(AccessLogResponseDTO::fromEntity)
+                .toList();
+		return ResponseEntity.ok().body(response);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<AccessLog> findById(@PathVariable Long id) {
-		AccessLog obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<AccessLogResponseDTO> findById(@PathVariable Long id) {
+		AccessLog accessLog = service.findById(id);
+        AccessLogResponseDTO response = AccessLogResponseDTO.fromEntity(accessLog);
+		return ResponseEntity.ok().body(response);
 	}
 }

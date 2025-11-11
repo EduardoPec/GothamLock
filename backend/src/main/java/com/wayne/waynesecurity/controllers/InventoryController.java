@@ -1,7 +1,10 @@
 package com.wayne.waynesecurity.controllers;
 
 import com.wayne.waynesecurity.model.Inventory;
+import com.wayne.waynesecurity.model.dto.InventoryRequestDTO;
+import com.wayne.waynesecurity.model.dto.InventoryResponseDTO;
 import com.wayne.waynesecurity.services.InventoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,23 +23,32 @@ public class InventoryController {
     }
 
     @GetMapping
-	public ResponseEntity<List<Inventory>> findAll() {
-		List<Inventory> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+	public ResponseEntity<List<InventoryResponseDTO>> findAll() {
+		List<Inventory> inventory = service.findAll();
+        List<InventoryResponseDTO> response = inventory.stream()
+                .map(InventoryResponseDTO::fromEntity)
+                .toList();
+		return ResponseEntity.ok().body(response);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Inventory> findById(@PathVariable Long id) {
-		Inventory obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<InventoryResponseDTO> findById(@PathVariable Long id) {
+		Inventory inventory = service.findById(id);
+        InventoryResponseDTO response = InventoryResponseDTO.fromEntity(inventory);
+		return ResponseEntity.ok().body(response);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Inventory> insert(@RequestBody Inventory obj) {
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+	public ResponseEntity<InventoryResponseDTO> insert(@Valid @RequestBody InventoryRequestDTO request) {
+		Inventory inventory = request.toEntity();
+        Inventory savedInventory = service.insert(inventory);
+        InventoryResponseDTO response = InventoryResponseDTO.fromEntity(savedInventory);
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+				.buildAndExpand(savedInventory.getId())
+                .toUri();
+		return ResponseEntity.created(uri).body(response);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -46,8 +58,11 @@ public class InventoryController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Inventory> update(@PathVariable Long id, @RequestBody Inventory obj) {
-		obj = service.update(id, obj);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<InventoryResponseDTO> update(@PathVariable Long id, @Valid @RequestBody InventoryRequestDTO request) {
+		Inventory inventory = request.toEntity();
+        inventory.setId(id);
+        Inventory updatedInventory = service.update(id, inventory);
+        InventoryResponseDTO response = InventoryResponseDTO.fromEntity(updatedInventory);
+		return ResponseEntity.ok().body(response);
 	}
 }
