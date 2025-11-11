@@ -38,12 +38,6 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 | 🧪 **Testes** | `spring-boot-starter-test` | Frameworks JUnit, AssertJ e Mockito. |
 | 🔒 **Testes de Segurança** | `spring-security-test` | Suporte a testes de autenticação. |
 
-### 🔧 Plugins e Propriedades
-- **Parent:** `org.springframework.boot:spring-boot-starter-parent:3.5.7`
-- **Java Version:** `21`
-- **Build Plugin:** `spring-boot-maven-plugin`
-- **Propriedade adicional:** `jjwt.version = 0.12.3` *(para futura implementação de JWT)*
-
 ---
 
 ## 🧩 Estrutura do Projeto
@@ -92,35 +86,32 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 
 ## 🔐 Funcionalidades Principais
 
-### 👥 Gestão de Usuários
-- Criação e autenticação de usuários com **senha criptografada** (`BCryptPasswordEncoder`)
-- Perfis de acesso definidos por **Role** (`ADMIN_SEGURANCA`, `GERENTE`, `FUNCIONARIO`)
-- **Validação robusta** de dados de entrada com Bean Validation
-- **DTOs segregados** para Request (criação) e Response (consulta)
-- Proteção de rotas via **Spring Security**
+### 👤 Autenticação e Segurança
+- Endpoint `/auth/me` retorna dados do usuário autenticado.  
+- Sistema de autenticação via **Spring Security + BCrypt**.  
+- Permissões baseadas em **roles** (`ADMIN_SEGURANCA`, `GERENTE`, `FUNCIONARIO`).  
+- Tratamento customizado de acessos negados (`CustomAccessDeniedHandler`) retornando JSON padronizado.  
+- **Validação de login e bloqueio de endpoints protegidos** por perfil.  
 
-### 🧠 Controle de Acesso
-- Registro automático de **logs de acesso (`AccessLog`)**  
-- Armazena área, tipo (entrada/saída), resultado (autorizado/negado) e data/hora  
-- Associação direta com o usuário responsável
-- **Sistema de permissões** baseado em roles com `AccessControlService`
+## 👥 Gestão de Usuários
+- CRUD completo de usuários com senhas criptografadas.
+- DTOs separados para **Request** (criação) e **Response** (retorno sem senha).
+- Respostas padronizadas com `StandardError` e `ValidationError`.
+
+### 🧠 Controle de Acesso (Access Logs)
+- Registro automático de entradas/saídas e resultados (`AUTORIZADO` ou `NEGADO`).
+- Campos validados via Bean Validation (`AccessLogRequestDTO`).
+- Associação com usuários registrados.
 
 ### ⚙️ Inventário
-- CRUD completo para gerenciamento de recursos internos (`Inventory`) e para cadastro de usuários (`User`)
-- Tipos de recurso: `VEICULO`, `EQUIPAMENTO`, `DISPOSITIVO`
-- Status: `DISPONIVEL`, `EM_USO`, `MANUTENCAO`
+- CRUD de itens internos com `InventoryType` (`EQUIPAMENTO`, `VEICULO`, `DISPOSITIVO`).
+- Status (`DISPONIVEL`, `EM_USO`, `MANUTENCAO`) atualizável.
+- Camada de serviço protegida e validada.
 
 ### 📊 Dashboard
-- Exibição de métricas e estatísticas de acessos e recursos
-- Design moderno e responsivo
-- Botão de logout estilizado com feedback visual
-
----
-
-### 🔹 **Padrão DTO com Separação Clara**
-
-- UserRequestDTO  → Para criação/atualização (com validações)
-- UserResponseDTO → Para consultas (sem dados sensíveis)
+- Estatísticas em tempo real sobre acessos e recursos.
+- Integração com o backend via REST.
+- Layout responsivo e moderno.
 
 ---
 
@@ -137,7 +128,31 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 
 ---
 
-## ⚙️ Execução do Projeto
+## 👤 Usuários de Teste
+
+| Nome | E-mail | Senha | Função |
+|------|--------|--------|--------|
+| Bruce Wayne | bruce@wayne.com | 123 | ADMIN_SEGURANCA |
+| Alfred Pennyworth | alfred@wayne.com | 123 | GERENTE |
+| Dick Grayson | dick@wayne.com | 123 | FUNCIONARIO |
+
+---
+
+## 🧠 Boas Práticas e Padrões Aplicados
+
+- Arquitetura **MVC em camadas** (Controller → Service → Repository).  
+- Uso de **DTOs** e `@Valid` para segurança dos dados.  
+- **Tratamento global de exceções** com `GlobalExceptionHandler`.  
+- **Logs estruturados** e mensagens de erro coerentes.  
+- **Senhas criptografadas** (`BCryptPasswordEncoder`).  
+- **Respostas padronizadas** via `StandardError`/`ValidationError`.  
+- **Enum mapeados por nome (STRING)** para legibilidade e compatibilidade.  
+- **Injeção de dependência via construtor** (boa prática de imutabilidade).  
+- **Clean Code e SOLID principles** adotados em toda a base.
+
+---
+
+## Execução do Projeto
 
 ### ▶️ 1. Clonar o repositório
 
@@ -160,59 +175,6 @@ http://localhost:8080
 ```
 http://localhost:8080/login.html
 ```
-
----
-
-## 👤 Usuários de Teste
-
-O projeto já inclui dados pré-carregados no banco H2 (definidos em `TestConfig.java`) para facilitar a validação das funcionalidades de autenticação e controle de acesso.
-
-| 🧍 Nome | 📧 Email | 🔑 Senha | 🧾 Função (Role) |
-|----------|-----------|-----------|------------------|
-| Bruce Wayne | bruce@wayne.com | 123 | ADMIN_SEGURANCA |
-| Alfred Pennyworth | alfred@wayne.com | 123 | GERENTE |
-| Dick Grayson | dick@wayne.com | 123 | FUNCIONARIO |
-
-💡 **Dica:**  
-Esses usuários são criados automaticamente ao rodar o backend no perfil de teste (`spring.profiles.active=test`).  
-A autenticação é protegida via **Spring Security**, com senhas criptografadas utilizando `BCryptPasswordEncoder`.
-
----
-
-## 🧠 Boas Práticas Aplicadas
-
-O projeto **Gotham Lock** foi desenvolvido seguindo padrões modernos de arquitetura e boas práticas de desenvolvimento com **Spring Boot**, garantindo legibilidade, segurança e escalabilidade do código.
-
-### 🔹 Organização e Arquitetura
-- Separação clara entre camadas **Controller → Service → Repository**, garantindo coesão e desacoplamento.
-- Estrutura de pacotes organizada por responsabilidade (`config`, `controllers`, `dto`, `model`, `repositories`, `services`, `exceptions`).
-- Utilização de **DTOs (Data Transfer Objects)** para evitar a exposição direta das entidades JPA.
-
-### 🔹 Segurança e Boas Práticas de API
-- Utilização do **Spring Security** com senhas criptografadas via `BCryptPasswordEncoder`.
-- Aplicação de `@JsonIgnore` em campos sensíveis como `password`, impedindo a exposição de dados confidenciais em respostas JSON.
-- Controle de acesso com perfis definidos por enum (`Role`), garantindo permissões específicas para cada tipo de usuário.
-- Endpoint de logout funcional e protegido contra requisições CSRF.
-
-### 🔹 Persistência e Integridade de Dados
-- Utilização de **JPA/Hibernate** para persistência, com entidades bem mapeadas e relacionamentos bidirecionais tratados com `@JsonIgnore` quando necessário.
-- Banco de dados **H2 em memória** no perfil de teste, permitindo execução rápida e independente.
-- Carregamento automático de dados para teste via `TestConfig`.
-
-### 🔹 Tratamento de Erros
-- Implementação de `ResourceExceptionHandler` para captura e retorno padronizado de exceções.
-- Exceções personalizadas (`ResourceNotFoundException`, `DatabaseException`, `SecurityException`) para melhor legibilidade e manutenção.
-
-### 🔹 Código Limpo e Padronizado
-- Uso consistente de `Optional` e `ResponseEntity` nas camadas de serviço e controle.
-- Padronização de respostas REST seguindo o formato **HTTP Status + corpo JSON detalhado**.
-- Adoção de nomes autoexplicativos e padronizados em inglês (ex.: `AccessLogService`, `UserRepository`, `InventoryController`).
-- Configuração do projeto via `application.properties` com variáveis centralizadas.
-
----
-
-💡 **Resumo:**  
-O projeto segue os princípios de **Clean Code**, **SOLID** e **Boas Práticas REST**, garantindo um código claro, modular e de fácil evolução.
 
 ---
 
