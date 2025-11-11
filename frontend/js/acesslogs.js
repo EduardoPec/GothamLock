@@ -17,7 +17,6 @@ function getResultClass(result) {
     return 'log-authorized';
 }
 
-
 async function loadAccessLogs() {
     const tableBody = document.getElementById('accessLogTable').querySelector('tbody');
     tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Carregando logs...</td></tr>';
@@ -31,6 +30,8 @@ async function loadAccessLogs() {
         }
 
         const logs = await response.json();
+        console.log('Logs recebidos:', logs); 
+        
         tableBody.innerHTML = ''; 
         
         if (logs.length === 0) {
@@ -50,7 +51,7 @@ async function loadAccessLogs() {
             tr.innerHTML = `
                 <td>${log.id}</td>
                 <td>${formatMoment(log.moment)}</td>
-                <td>${log.user.name} (${log.user.email})</td>
+                <td>${log.userName} (${log.userEmail})</td> <!-- ✅ CORRIGIDO -->
                 <td>${formattedArea}</td>
                 <td>${formattedType}</td>
                 <td class="${resultClass}">${formattedResult}</td>
@@ -65,7 +66,6 @@ async function loadAccessLogs() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
     applyUIPermissions(); 
     loadAccessLogs();
 });

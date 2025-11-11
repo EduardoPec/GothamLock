@@ -98,8 +98,15 @@ async function deleteUser(id) {
     if (!confirm('Tem certeza que deseja excluir este usuário?')) return;
     
     try {
-        const response = await fetchAuth(`/users/${id}`, { method: 'DELETE' }); 
-
+        const response = await fetchAuth(`/users/${id}`, { method: 'DELETE' });
+        
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            throw new Error(errorData?.message || `Falha ao deletar: Status ${response.status}`);
+        }
+        
+        alert('Usuário excluído com sucesso!');
+        await loadUsers();
     } catch (error) {
         alert('Erro ao excluir: ' + error.message);
     }
