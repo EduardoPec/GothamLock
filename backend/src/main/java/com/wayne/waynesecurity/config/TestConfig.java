@@ -1,44 +1,37 @@
 package com.wayne.waynesecurity.config;
 
-import java.time.Instant;
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wayne.waynesecurity.model.AccessLog;
+import com.wayne.waynesecurity.model.Inventory;
+import com.wayne.waynesecurity.model.User;
+import com.wayne.waynesecurity.model.enums.*;
+import com.wayne.waynesecurity.repositories.AccessLogRepository;
+import com.wayne.waynesecurity.repositories.InventoryRepository;
+import com.wayne.waynesecurity.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.wayne.waynesecurity.model.AccessLog;
-import com.wayne.waynesecurity.model.Inventory;
-import com.wayne.waynesecurity.model.User;
-import com.wayne.waynesecurity.model.enums.AccessArea;
-import com.wayne.waynesecurity.model.enums.AccessResult;
-import com.wayne.waynesecurity.model.enums.AccessType;
-import com.wayne.waynesecurity.model.enums.InventoryStatus;
-import com.wayne.waynesecurity.model.enums.InventoryType;
-import com.wayne.waynesecurity.model.enums.Role;
-import com.wayne.waynesecurity.repositories.AccessLogRepository;
-import com.wayne.waynesecurity.repositories.InventoryRepository;
-import com.wayne.waynesecurity.repositories.UserRepository;
+import java.time.Instant;
+import java.util.Arrays;
 
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
-	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private InventoryRepository inventoryRepository;
-	
-	@Autowired
-	private AccessLogRepository accessLogRepository;
-	
-	@Autowired
-    private PasswordEncoder passwordEncoder;
 
-	@Override
+	private final UserRepository userRepository;
+	private final InventoryRepository inventoryRepository;
+	private final AccessLogRepository accessLogRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public TestConfig(UserRepository userRepository, PasswordEncoder passwordEncoder, InventoryRepository inventoryRepository, AccessLogRepository accessLogRepository) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.inventoryRepository = inventoryRepository;
+        this.accessLogRepository = accessLogRepository;
+    }
+
+    @Override
 	public void run(String... args) throws Exception {
 		
 		String encodedPassword = passwordEncoder.encode("123");

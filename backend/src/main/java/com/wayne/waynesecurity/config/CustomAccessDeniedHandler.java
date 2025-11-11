@@ -1,28 +1,28 @@
 package com.wayne.waynesecurity.config;
 
-import java.io.IOException;
-import java.time.Instant;
-
-import org.springframework.beans.factory.annotation.Autowired; // NOVO
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wayne.waynesecurity.controllers.exceptions.StandardError;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wayne.waynesecurity.controllers.exceptions.StandardError;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.Instant;
 
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-    @Autowired
-	private ObjectMapper objectMapper; 
+	private final ObjectMapper objectMapper;
 
-	@Override
+    public CustomAccessDeniedHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    @Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 

@@ -1,27 +1,27 @@
 package com.wayne.waynesecurity.services;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.wayne.waynesecurity.model.enums.AccessResult;
 import com.wayne.waynesecurity.model.enums.InventoryStatus;
 import com.wayne.waynesecurity.repositories.AccessLogRepository;
 import com.wayne.waynesecurity.repositories.InventoryRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class DashboardService {
-	
-	@Autowired
-	private InventoryRepository inventoryRepository;
-	
-	@Autowired
-	private AccessLogRepository accessLogRepository;
-	
-	public Map<String, Long> getInventoryStatusMetrics() {
+
+	private final InventoryRepository inventoryRepository;
+	private final AccessLogRepository accessLogRepository;
+
+    public DashboardService(AccessLogRepository accessLogRepository, InventoryRepository inventoryRepository) {
+        this.accessLogRepository = accessLogRepository;
+        this.inventoryRepository = inventoryRepository;
+    }
+
+    public Map<String, Long> getInventoryStatusMetrics() {
 		List<Object[]> results = inventoryRepository.countByStatus();
 		
 		Map<String, Long> metrics = new HashMap<>();

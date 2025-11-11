@@ -1,27 +1,27 @@
 package com.wayne.waynesecurity.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Service;
-
 import com.wayne.waynesecurity.model.Inventory;
 import com.wayne.waynesecurity.repositories.InventoryRepository;
 import com.wayne.waynesecurity.services.exceptions.DatabaseException;
 import com.wayne.waynesecurity.services.exceptions.ResourceNotFoundException;
-
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InventoryService {
 
-	@Autowired
-	private InventoryRepository repository;
+	private final InventoryRepository repository;
 
-	public List<Inventory> findAll() {
+    public InventoryService(InventoryRepository repository) {
+        this.repository = repository;
+    }
+
+    public List<Inventory> findAll() {
 		return repository.findAll();
 	}
 
