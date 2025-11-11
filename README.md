@@ -2,7 +2,7 @@
 
 **Gotham Lock** é uma aplicação web full stack desenvolvida para as **Indústrias Wayne**, com o objetivo de gerenciar o **controle de acesso a áreas restritas**, supervisionar o **inventário de recursos** e registrar **logs de segurança** de forma moderna, escalável e confiável.
 
-O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Spring Data JPA**, com **banco H2** para testes e um **frontend em HTML, CSS e JavaScript** inspirado na identidade visual das Indústrias Wayne 🦇.
+O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Spring Data JPA**, com **banco H2** para testes e um **frontend em HTML, CSS e JavaScript** inspirado na identidade visual das Indústrias Wayne.
 
 ---
 
@@ -16,6 +16,7 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 - 🔐 **Spring Security**
 - 🧠 **H2 Database** (banco em memória para testes)
 - 🧰 **Maven & Spring Boot Plugin**
+- ✅ **Bean Validation** (validações de entrada de dados)
 
 ### 🎨 Frontend
 - HTML5, CSS3 e JavaScript
@@ -33,6 +34,7 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 | 💾 **Persistência** | `spring-boot-starter-data-jpa` | Integração com JPA/Hibernate. |
 | 🔐 **Segurança** | `spring-boot-starter-security` | Autenticação e autorização. |
 | 🧠 **Banco de Dados** | `com.h2database:h2` | Banco em memória para testes. |
+| ✅ **Validação** | `spring-boot-starter-validation` | Validação de dados com Bean Validation. |
 | 🧪 **Testes** | `spring-boot-starter-test` | Frameworks JUnit, AssertJ e Mockito. |
 | 🔒 **Testes de Segurança** | `spring-security-test` | Suporte a testes de autenticação. |
 
@@ -45,35 +47,46 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 ---
 
 ## 🧩 Estrutura do Projeto
+
 ```
+📂 Projeto Wayne Security
+
 ├── backend/
-│ ├── src/
-│ │ ├── main/java/com/wayne/waynesecurity/
-│ │ │ ├── config/ # Configurações de segurança e perfis
-│ │ │ ├── controllers/ # Endpoints REST
-│ │ │ ├── dto/ # Data Transfer Objects
-│ │ │ ├── model/ # Entidades JPA
-│ │ │ ├── repositories/ # Repositórios JPA
-│ │ │ ├── services/ # Regras de negócio
-│ │ │ └── exceptions/ # Tratamento global de erros
-│ │ └── resources/
-│ │ ├── static/ # Frontend (HTML, CSS, JS)
-| | ├── application-test.properties
-│ │ └── application.properties
-│ └── pom.xml
+│   ├── src/
+│   │   ├── main/java/com/wayne/waynesecurity/
+│   │   │   ├── config/                # Configurações de segurança e perfis (Spring Security, profiles, beans)  
+│   │   │   ├── controllers/           # Controladores REST (endpoints HTTP)
+|   |   |   |     └── exceptions/      # Tratamento global de exceções e erros personalizados
+│   │   │   ├── model/                 # Entidades JPA e mapeamentos do domínio
+│   │   │   │   └── enums/             # Enumerações (Roles, Status, Tipos, etc.)
+|   |   |   |   └── dto/               # Data Transfer Objects (entrada e saída da API)
+│   │   │   ├── repositories/          # Interfaces JPA para acesso ao banco de dados
+│   │   │   └── services/              # Regras de negócio e integração entre camadas
+│   │   │     └── exceptions/          # Exceções personalizadas usadas nos serviços
+│   │   │
+│   │   └── resources/
+│   │       ├── static/                  # Arquivos estáticos (HTML, CSS, JS)
+│   │       ├── application.properties   # Configuração padrão
+│   │       └── application-test.properties   # Configuração para perfil de testes
+│   │
+│   └── pom.xml                        # Gerenciador de dependências Maven
 │
-├── frontend/ # (caso o frontend seja mantido separado)
-│ ├── login.html
-│ ├── dashboard.html
-│ ├── inventory.html
-| ├── users.html
-| ├── accesslogs.html
-| ├── img/
-│ ├── css/
-│ └── js/
+├── frontend/                          # (caso o frontend seja separado)
+│   ├── login.html                     # Página de login
+│   ├── dashboard.html                 # Painel principal
+│   ├── inventory.html                 # Controle de inventário
+│   ├── users.html                     # Gestão de usuários
+│   ├── accesslogs.html                # Logs de acesso
+│   ├── img/                           # Imagens e ícones
+│   ├── css/                           # Estilos
+│   └── js/                            # Scripts JavaScript
 │
-└── README.md
+└── README.md                          # Documentação principal do projeto
+
 ```
+
+---
+
 
 ---
 
@@ -82,12 +95,15 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 ### 👥 Gestão de Usuários
 - Criação e autenticação de usuários com **senha criptografada** (`BCryptPasswordEncoder`)
 - Perfis de acesso definidos por **Role** (`ADMIN_SEGURANCA`, `GERENTE`, `FUNCIONARIO`)
+- **Validação robusta** de dados de entrada com Bean Validation
+- **DTOs segregados** para Request (criação) e Response (consulta)
 - Proteção de rotas via **Spring Security**
 
 ### 🧠 Controle de Acesso
 - Registro automático de **logs de acesso (`AccessLog`)**  
 - Armazena área, tipo (entrada/saída), resultado (autorizado/negado) e data/hora  
 - Associação direta com o usuário responsável
+- **Sistema de permissões** baseado em roles com `AccessControlService`
 
 ### ⚙️ Inventário
 - CRUD completo para gerenciamento de recursos internos (`Inventory`) e para cadastro de usuários (`User`)
@@ -98,6 +114,13 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 - Exibição de métricas e estatísticas de acessos e recursos
 - Design moderno e responsivo
 - Botão de logout estilizado com feedback visual
+
+---
+
+### 🔹 **Padrão DTO com Separação Clara**
+
+- UserRequestDTO  → Para criação/atualização (com validações)
+- UserResponseDTO → Para consultas (sem dados sensíveis)
 
 ---
 
@@ -117,6 +140,7 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 ## ⚙️ Execução do Projeto
 
 ### ▶️ 1. Clonar o repositório
+
 ```bash
 git clone https://github.com/seuusuario/waynesecurity.git
 ```
@@ -192,34 +216,10 @@ O projeto segue os princípios de **Clean Code**, **SOLID** e **Boas Práticas R
 
 ---
 
-## 🦾 Próximos Passos
-
-O projeto **Gotham Lock** já está totalmente funcional, mas novas melhorias estão planejadas para torná-lo ainda mais robusto, seguro e escalável.  
-
-### 🔹 Melhorias Técnicas
-- Implementar autenticação e autorização via **JWT (JSON Web Token)** utilizando a propriedade já definida `jjwt.version = 0.12.3`.
-
-### 🔹 Experiência do Usuário
-- Criar **alertas visuais e feedbacks em tempo real** no frontend (toast notifications e loading states).
-- Implementar **tema dinâmico** (modo claro/escuro) no dashboard.
-- Adicionar animações suaves e melhorias de responsividade no layout.
- 
-### 🔹 Integração e Deploy
-- Configurar **CI/CD com GitHub Actions** para build e testes automatizados.
-- Fazer o **deploy do backend**, e o **frontend**.
-- Adicionar **variáveis de ambiente** para conexões seguras e gestão de perfis (`dev`, `test`, `prod`).
-
----
-
-💡 **Objetivo Futuro:**  
-Transformar o **Gotham Lock** em uma plataforma completa de monitoramento corporativo, com dashboards dinâmicos, autenticação JWT, relatórios exportáveis e integração com banco de dados PostgreSQL.
-
----
-
 ## 👨‍💻 Autor
 
 **Desenvolvido por Eduardo Peçanha**  
-💼 Desenvolvedor Backend | ☕ Java | ⚡ Spring Boot | 💻 Futuro Desenvolvedor Full-Stack  
+💼 Desenvolvedor Backend | Java | Spring Boot | Desenvolvedor Full-Stack  
 📧 E-mail: eduardopecanha05@gmail.com  
 🌐 [LinkedIn](https://www.linkedin.com/in/eduardopecanhasantos/) | [GitHub](https://github.com/EduardoPec)
 
