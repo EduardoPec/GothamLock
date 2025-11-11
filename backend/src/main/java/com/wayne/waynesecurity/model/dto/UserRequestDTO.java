@@ -5,12 +5,11 @@ import com.wayne.waynesecurity.model.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
 public class UserRequestDTO implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -29,8 +28,8 @@ public class UserRequestDTO implements Serializable {
 	
 	public UserRequestDTO() {
     }
-	
-	public User toEntity() {
+
+    public User toEntity() {
         User user = new User();
         user.setId(this.id);
         user.setName(this.name);
