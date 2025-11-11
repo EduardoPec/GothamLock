@@ -32,31 +32,34 @@ public class UserService {
 	}
 	
 	public User findById(Long id) {
-		Optional<User> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		Optional<User> user = repository.findById(id);
+		return user.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public User insert(User obj) {
-		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
-		return repository.save(obj);
+	public User insert(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		return repository.save(user);
 	}
 	
 	public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException(id);
+        }
 		try {
 			repository.deleteById(id);
 		}
-		catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException(id);
-		}
+        catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        }
 		catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
 	}
 	
-	public User update(Long id, User obj) {
+	public User update(Long id, User user) {
 		try {
 			User entity = repository.getReferenceById(id);
-			updateData(entity, obj);
+			updateData(entity, user);
 			return repository.save(entity);
 		}
 		catch (EntityNotFoundException e) {
@@ -64,10 +67,10 @@ public class UserService {
 		}
 	}
 
-	private void updateData(User entity, User obj) {
-		entity.setName(obj.getName());
-		entity.setEmail(obj.getEmail());
-		entity.setRole(obj.getRole());
+	private void updateData(User entity, User user) {
+		entity.setName(user.getName());
+		entity.setEmail(user.getEmail());
+		entity.setRole(user.getRole());
 	}
 
 	public void enterArea(Long id, String area) {

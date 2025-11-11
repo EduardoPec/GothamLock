@@ -26,16 +26,19 @@ public class InventoryService {
 	}
 
 	public Inventory findById(Long id) {
-		Optional<Inventory> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		Optional<Inventory> inventory = repository.findById(id);
+		return inventory.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public Inventory insert(Inventory obj) {
-		return repository.save(obj);
+	public Inventory insert(Inventory inventory) {
+		return repository.save(inventory);
 	}
 	
 	public void delete(Long id) {
-		try {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException(id);
+        }
+        try {
 			repository.deleteById(id);
 		}
 		catch (EmptyResultDataAccessException e) {
@@ -46,10 +49,10 @@ public class InventoryService {
 		}
 	}
 	
-	public Inventory update(Long id, Inventory obj) {
+	public Inventory update(Long id, Inventory inventory) {
 		try {
 			Inventory entity = repository.getReferenceById(id);
-			updateData(entity, obj);
+			updateData(entity, inventory);
 			return repository.save(entity);
 		}
 		catch (EntityNotFoundException e) {
@@ -57,10 +60,10 @@ public class InventoryService {
 		}
 	}
 
-	private void updateData(Inventory entity, Inventory obj) {
-		entity.setName(obj.getName());
-		entity.setType(obj.getType());
-		entity.setStatus(obj.getStatus());
+	private void updateData(Inventory entity, Inventory inventory) {
+		entity.setName(inventory.getName());
+		entity.setType(inventory.getType());
+		entity.setStatus(inventory.getStatus());
 	}
 }
 
