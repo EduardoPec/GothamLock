@@ -1,8 +1,8 @@
 package com.wayne.waynesecurity.controllers;
 
 import com.wayne.waynesecurity.model.Inventory;
-import com.wayne.waynesecurity.model.dto.InventoryRequestDTO;
-import com.wayne.waynesecurity.model.dto.InventoryResponseDTO;
+import com.wayne.waynesecurity.model.dto.request.InventoryRequestDTO;
+import com.wayne.waynesecurity.model.dto.response.InventoryResponseDTO;
 import com.wayne.waynesecurity.services.InventoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

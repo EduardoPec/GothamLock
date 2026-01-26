@@ -1,8 +1,8 @@
 package com.wayne.waynesecurity.controllers;
 
 import com.wayne.waynesecurity.model.User;
-import com.wayne.waynesecurity.model.dto.UserRequestDTO;
-import com.wayne.waynesecurity.model.dto.UserResponseDTO;
+import com.wayne.waynesecurity.model.dto.request.UserRequestDTO;
+import com.wayne.waynesecurity.model.dto.response.UserResponseDTO;
 import com.wayne.waynesecurity.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.wayne.waynesecurity.controllers;
 
 import com.wayne.waynesecurity.model.User;
-import com.wayne.waynesecurity.model.dto.UserResponseDTO;
+import com.wayne.waynesecurity.model.dto.response.UserResponseDTO;
 import com.wayne.waynesecurity.repositories.UserRepository;
 import com.wayne.waynesecurity.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;

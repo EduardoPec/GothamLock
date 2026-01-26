@@ -1,4 +1,4 @@
-package com.wayne.waynesecurity.model.dto;
+package com.wayne.waynesecurity.model.dto.response;
 
 import com.wayne.waynesecurity.model.AccessLog;
 import com.wayne.waynesecurity.model.enums.*;

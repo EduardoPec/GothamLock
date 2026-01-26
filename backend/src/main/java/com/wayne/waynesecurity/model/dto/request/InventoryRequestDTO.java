@@ -1,4 +1,4 @@
-package com.wayne.waynesecurity.model.dto;
+package com.wayne.waynesecurity.model.dto.request;
 
 import com.wayne.waynesecurity.model.Inventory;
 import com.wayne.waynesecurity.model.enums.InventoryStatus;

@@ -1,7 +1,7 @@
 package com.wayne.waynesecurity.controllers;
 
 import com.wayne.waynesecurity.model.AccessLog;
-import com.wayne.waynesecurity.model.dto.AccessLogResponseDTO;
+import com.wayne.waynesecurity.model.dto.response.AccessLogResponseDTO;
 import com.wayne.waynesecurity.services.AccessLogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
