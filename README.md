@@ -26,12 +26,30 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 
 ---
 
+## 📘 Documentação da API (Swagger)
+
+O projeto conta com **documentação interativa da API** utilizando **Swagger/OpenAPI**, facilitando testes, entendimento dos endpoints e integração com outras aplicações.
+
+### 🔗 Acesso ao Swagger UI
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+### 🔐 Segurança no Swagger
+- A API utiliza **Basic Authentication**
+- Todos os endpoints protegidos exigem autenticação
+- O Swagger está configurado com **SecurityScheme HTTP Basic**
+- É possível autenticar diretamente pelo botão **Authorize 🔒** da interface
+
+---
+
 ## ⚙️ Dependências (Maven)
 
 | Tipo | Dependência | Descrição |
 |------|--------------|------------|
 | 🧩 **Core Web** | `spring-boot-starter-web` | Criação de APIs REST e servidor embutido (Tomcat). |
 | 💾 **Persistência** | `spring-boot-starter-data-jpa` | Integração com JPA/Hibernate. |
+|    **Documentação** | `springdoc-openapi-starter-webmvc-ui` | Swagger / OpenAPI |
 | 🔐 **Segurança** | `spring-boot-starter-security` | Autenticação e autorização. |
 | 🧠 **Banco de Dados** | `com.h2database:h2` | Banco em memória para testes. |
 | ✅ **Validação** | `spring-boot-starter-validation` | Validação de dados com Bean Validation. |
@@ -48,7 +66,7 @@ O sistema utiliza **Spring Boot 3.5.7**, **Java 21**, **Spring Security** e **Sp
 ├── backend/
 │   ├── src/
 │   │   ├── main/java/com/wayne/waynesecurity/
-│   │   │   ├── config/                # Configurações de segurança e perfis (Spring Security, profiles, beans)  
+│   │   │   ├── config/                # Configurações de segurança e perfis (Spring Security, OpenApiConfig, profiles, beans)  
 │   │   │   ├── controllers/           # Controladores REST (endpoints HTTP)
 |   |   |   |     └── exceptions/      # Tratamento global de exceções e erros personalizados
 │   │   │   ├── model/                 # Entidades JPA e mapeamentos do domínio
