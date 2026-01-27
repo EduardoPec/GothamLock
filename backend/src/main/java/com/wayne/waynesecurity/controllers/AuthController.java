@@ -5,6 +5,10 @@ import com.wayne.waynesecurity.model.User;
 import com.wayne.waynesecurity.model.dto.response.UserResponseDTO;
 import com.wayne.waynesecurity.repositories.UserRepository;
 import com.wayne.waynesecurity.services.exceptions.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/auth")
+@Tag(name = "Autenticação", description = "Endpoints relacionados à autenticação de usuários")
 public class AuthController {
 
     private final UserRepository userRepository;
@@ -26,6 +31,12 @@ public class AuthController {
     }
 
     @GetMapping(value = "/me")
+    @Operation(summary = "Obter usuário autenticado", description = "Retorna os dados do usuário atualmente autenticado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Usuário autenticado encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autenticado"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+    })
     public ResponseEntity<UserResponseDTO> getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

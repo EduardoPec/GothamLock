@@ -2,11 +2,13 @@ package com.wayne.waynesecurity.model.dto.request;
 
 import com.wayne.waynesecurity.model.enums.InventoryStatus;
 import com.wayne.waynesecurity.model.enums.InventoryType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
+@Schema(name = "Request de Item de Inventário")
 public class InventoryRequestDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

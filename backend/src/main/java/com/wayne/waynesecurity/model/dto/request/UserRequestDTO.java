@@ -1,13 +1,14 @@
 package com.wayne.waynesecurity.model.dto.request;
 
-import com.wayne.waynesecurity.model.User;
 import com.wayne.waynesecurity.model.enums.Role;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
+@Schema(name = "Request de Usuário")
 public class UserRequestDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

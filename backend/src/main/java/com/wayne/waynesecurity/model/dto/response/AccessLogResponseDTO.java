@@ -1,12 +1,13 @@
 package com.wayne.waynesecurity.model.dto.response;
 
-import com.wayne.waynesecurity.model.AccessLog;
 import com.wayne.waynesecurity.model.enums.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+@Schema(name = "Response de Log de Acessos")
 public class AccessLogResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

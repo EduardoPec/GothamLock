@@ -3,11 +3,13 @@ package com.wayne.waynesecurity.model.dto.request;
 import com.wayne.waynesecurity.model.enums.AccessArea;
 import com.wayne.waynesecurity.model.enums.AccessResult;
 import com.wayne.waynesecurity.model.enums.AccessType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.Instant;
 
+@Schema(name = "Request de Logs de Acessos")
 public class AccessLogRequestDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

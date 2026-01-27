@@ -1,12 +1,13 @@
 package com.wayne.waynesecurity.model.dto.response;
 
-import com.wayne.waynesecurity.model.Inventory;
 import com.wayne.waynesecurity.model.enums.InventoryStatus;
 import com.wayne.waynesecurity.model.enums.InventoryType;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Schema(name = "Response de Item de Inventário")
 public class InventoryResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

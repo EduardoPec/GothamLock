@@ -1,11 +1,12 @@
 package com.wayne.waynesecurity.model.dto.response;
 
-import com.wayne.waynesecurity.model.User;
 import com.wayne.waynesecurity.model.enums.Role;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Schema(name = "Response de Usuário")
 public class UserResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
