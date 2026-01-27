@@ -29,16 +29,6 @@ public class UserRequestDTO implements Serializable {
 	public UserRequestDTO() {
     }
 
-    public User toEntity() {
-        User user = new User();
-        user.setId(this.id);
-        user.setName(this.name);
-        user.setEmail(this.email);
-        user.setRole(this.role);
-        user.setPassword(this.password);
-        return user;
-    }
-
     public Long getId() {
         return id;
     }

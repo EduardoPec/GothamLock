@@ -24,15 +24,6 @@ public class UserResponseDTO implements Serializable {
         this.role = role;
     }
 
-    public static UserResponseDTO fromEntity(User user) {
-        return new UserResponseDTO(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getRole()
-        );
-    }
-
     public Long getId() {
         return id;
     }

@@ -24,31 +24,25 @@ public class InventoryController {
 
     @GetMapping
 	public ResponseEntity<List<InventoryResponseDTO>> findAll() {
-		List<Inventory> inventory = service.findAll();
-        List<InventoryResponseDTO> response = inventory.stream()
-                .map(InventoryResponseDTO::fromEntity)
-                .toList();
-		return ResponseEntity.ok().body(response);
+		List<InventoryResponseDTO> inventory = service.findAll();
+		return ResponseEntity.ok().body(inventory);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<InventoryResponseDTO> findById(@PathVariable Long id) {
-		Inventory inventory = service.findById(id);
-        InventoryResponseDTO response = InventoryResponseDTO.fromEntity(inventory);
-		return ResponseEntity.ok().body(response);
+		InventoryResponseDTO responseDTO = service.findById(id);
+		return ResponseEntity.ok().body(responseDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<InventoryResponseDTO> insert(@Valid @RequestBody InventoryRequestDTO request) {
-		Inventory inventory = request.toEntity();
-        Inventory savedInventory = service.insert(inventory);
-        InventoryResponseDTO response = InventoryResponseDTO.fromEntity(savedInventory);
+        InventoryResponseDTO responseDTO = service.insert(request);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-				.buildAndExpand(savedInventory.getId())
+				.buildAndExpand(responseDTO.getId())
                 .toUri();
-		return ResponseEntity.created(uri).body(response);
+		return ResponseEntity.created(uri).body(responseDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -59,10 +53,7 @@ public class InventoryController {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<InventoryResponseDTO> update(@PathVariable Long id, @Valid @RequestBody InventoryRequestDTO request) {
-		Inventory inventory = request.toEntity();
-        inventory.setId(id);
-        Inventory updatedInventory = service.update(id, inventory);
-        InventoryResponseDTO response = InventoryResponseDTO.fromEntity(updatedInventory);
-		return ResponseEntity.ok().body(response);
+        InventoryResponseDTO responseDTO = service.update(id, request);
+		return ResponseEntity.ok().body(responseDTO);
 	}
 }

@@ -1,7 +1,5 @@
 package com.wayne.waynesecurity.model.dto.request;
 
-import com.wayne.waynesecurity.model.AccessLog;
-import com.wayne.waynesecurity.model.User;
 import com.wayne.waynesecurity.model.enums.AccessArea;
 import com.wayne.waynesecurity.model.enums.AccessResult;
 import com.wayne.waynesecurity.model.enums.AccessType;
@@ -30,17 +28,6 @@ public class AccessLogRequestDTO implements Serializable {
     private Long userId;
 
     public AccessLogRequestDTO() {
-    }
-
-    public AccessLog toEntity(User user) {
-        AccessLog accessLog = new AccessLog();
-        accessLog.setId(this.id);
-        accessLog.setArea(this.area);
-        accessLog.setType(this.type);
-        accessLog.setResult(this.result);
-        accessLog.setMoment(this.moment != null ? this.moment : Instant.now());
-        accessLog.setUser(user);
-        return accessLog;
     }
 
     public Long getId() {

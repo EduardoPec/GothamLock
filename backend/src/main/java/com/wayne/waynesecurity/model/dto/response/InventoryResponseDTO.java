@@ -25,15 +25,6 @@ public class InventoryResponseDTO implements Serializable {
         this.status = status;
     }
 
-    public static InventoryResponseDTO fromEntity(Inventory inventory) {
-        return new InventoryResponseDTO(
-                inventory.getId(),
-                inventory.getName(),
-                inventory.getType(),
-                inventory.getStatus()
-        );
-    }
-
     public Long getId() {
         return id;
     }

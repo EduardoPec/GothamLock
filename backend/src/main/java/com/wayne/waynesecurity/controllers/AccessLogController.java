@@ -23,17 +23,13 @@ public class AccessLogController {
 
     @GetMapping
 	public ResponseEntity<List<AccessLogResponseDTO>> findAll() {
-		List<AccessLog> accessLogs = service.findAll();
-        List<AccessLogResponseDTO> response = accessLogs.stream()
-                .map(AccessLogResponseDTO::fromEntity)
-                .toList();
-		return ResponseEntity.ok().body(response);
+		List<AccessLogResponseDTO> accessLogs = service.findAll();
+		return ResponseEntity.ok().body(accessLogs);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<AccessLogResponseDTO> findById(@PathVariable Long id) {
-		AccessLog accessLog = service.findById(id);
-        AccessLogResponseDTO response = AccessLogResponseDTO.fromEntity(accessLog);
-		return ResponseEntity.ok().body(response);
+		AccessLogResponseDTO responseDTO = service.findById(id);
+		return ResponseEntity.ok().body(responseDTO);
 	}
 }

@@ -1,5 +1,6 @@
 package com.wayne.waynesecurity.controllers;
 
+import com.wayne.waynesecurity.mapper.Imapper;
 import com.wayne.waynesecurity.model.User;
 import com.wayne.waynesecurity.model.dto.response.UserResponseDTO;
 import com.wayne.waynesecurity.repositories.UserRepository;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserRepository userRepository;
+    private final Imapper mapper;
 
-    public AuthController(UserRepository userRepository) {
+    public AuthController(UserRepository userRepository, Imapper mapper) {
         this.userRepository = userRepository;
+        this.mapper = mapper;
     }
 
     @GetMapping(value = "/me")
@@ -33,7 +36,8 @@ public class AuthController {
         String email = ((UserDetails) authentication.getPrincipal()).getUsername();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado após autenticação: " + email));
-        UserResponseDTO response = UserResponseDTO.fromEntity(user);
-        return ResponseEntity.ok().body(response);
+
+        UserResponseDTO responseDTO = mapper.toUserResponse(user);
+        return ResponseEntity.ok().body(responseDTO);
     }
 }

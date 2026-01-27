@@ -1,6 +1,5 @@
 package com.wayne.waynesecurity.model.dto.request;
 
-import com.wayne.waynesecurity.model.Inventory;
 import com.wayne.waynesecurity.model.enums.InventoryStatus;
 import com.wayne.waynesecurity.model.enums.InventoryType;
 import jakarta.validation.constraints.NotBlank;
@@ -23,15 +22,6 @@ public class InventoryRequestDTO implements Serializable {
     private InventoryStatus status;
 
     public InventoryRequestDTO() {
-    }
-
-    public Inventory toEntity() {
-        Inventory inventory = new Inventory();
-        inventory.setId(this.id);
-        inventory.setName(this.name);
-        inventory.setType(this.type);
-        inventory.setStatus(this.status);
-        return inventory;
     }
 
     public Long getId() {

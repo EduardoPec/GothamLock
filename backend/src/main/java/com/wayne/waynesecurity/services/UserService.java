@@ -1,6 +1,9 @@
 package com.wayne.waynesecurity.services;
 
+import com.wayne.waynesecurity.mapper.Imapper;
 import com.wayne.waynesecurity.model.User;
+import com.wayne.waynesecurity.model.dto.request.UserRequestDTO;
+import com.wayne.waynesecurity.model.dto.response.UserResponseDTO;
 import com.wayne.waynesecurity.model.enums.AccessArea;
 import com.wayne.waynesecurity.repositories.UserRepository;
 import com.wayne.waynesecurity.services.exceptions.DatabaseException;
@@ -10,41 +13,51 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
 	private final UserRepository repository;
+    private final Imapper mapper;
     private final AccessControlService accessControl;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(AccessControlService accessControl, UserRepository repository, PasswordEncoder passwordEncoder) {
+    public UserService(AccessControlService accessControl, UserRepository repository, Imapper mapper, PasswordEncoder passwordEncoder) {
         this.accessControl = accessControl;
         this.repository = repository;
+        this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> findAll() {
-		return repository.findAll();
+    public List<UserResponseDTO> findAll() {
+        return repository.findAll().stream()
+                .map(mapper::toUserResponse)
+                .collect(Collectors.toList());
 	}
 	
-	public User findById(Long id) {
-		Optional<User> user = repository.findById(id);
-		return user.orElseThrow(() -> new ResourceNotFoundException(id));
+	public UserResponseDTO findById(Long id) {
+		User user = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+
+        return mapper.toUserResponse(user);
 	}
-	
-	public User insert(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return repository.save(user);
+
+    @Transactional
+	public UserResponseDTO insert(UserRequestDTO requestDTO) {
+        User user = mapper.userToEntity(requestDTO);
+		user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
+
+        User saveUser = repository.save(user);
+        return mapper.toUserResponse(saveUser);
 	}
-	
+
+    @Transactional
 	public void delete(Long id) {
-        if (!repository.existsById(id)) {
-            throw new ResourceNotFoundException(id);
-        }
 		try {
 			repository.deleteById(id);
 		}
@@ -55,26 +68,26 @@ public class UserService {
 			throw new DatabaseException(e.getMessage());
 		}
 	}
-	
-	public User update(Long id, User user) {
-		try {
-			User entity = repository.getReferenceById(id);
-			updateData(entity, user);
-			return repository.save(entity);
-		}
-		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
+
+    @Transactional
+	public UserResponseDTO update(Long id, UserRequestDTO requestDTO) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + id));
+        updateData(user, requestDTO);
+
+        User saveUpdate = repository.save(user);
+        return mapper.toUserResponse(saveUpdate);
 	}
 
-	private void updateData(User entity, User user) {
-		entity.setName(user.getName());
-		entity.setEmail(user.getEmail());
-		entity.setRole(user.getRole());
+	private void updateData(User entity, UserRequestDTO requestDTO) {
+		entity.setName(requestDTO.getName());
+		entity.setEmail(requestDTO.getEmail());
+		entity.setRole(requestDTO.getRole());
 	}
 
 	public void enterArea(Long id, String area) {
-		User user = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		User user = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
 
 		AccessArea accessArea;
 		try {

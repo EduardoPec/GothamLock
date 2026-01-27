@@ -1,5 +1,6 @@
 package com.wayne.waynesecurity.controllers;
 
+import com.wayne.waynesecurity.mapper.MapperImplementacao;
 import com.wayne.waynesecurity.model.User;
 import com.wayne.waynesecurity.model.dto.request.UserRequestDTO;
 import com.wayne.waynesecurity.model.dto.response.UserResponseDTO;
@@ -24,31 +25,25 @@ public class UserController {
 
     @GetMapping
 	public ResponseEntity<List<UserResponseDTO>> findAll() {
-		List<User> users = service.findAll();
-        List<UserResponseDTO> response = users.stream()
-                .map(UserResponseDTO::fromEntity)
-                .toList();
-		return ResponseEntity.ok().body(response);
+		List<UserResponseDTO> users = service.findAll();
+		return ResponseEntity.ok().body(users);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
-		User user = service.findById(id);
-        UserResponseDTO response = UserResponseDTO.fromEntity(user);
-		return ResponseEntity.ok().body(response);
+		UserResponseDTO responseDTO = service.findById(id);
+		return ResponseEntity.ok().body(responseDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<UserResponseDTO> insert(@Valid @RequestBody UserRequestDTO request) {
-        User user = request.toEntity();
-        User savedUser = service.insert(user);
-        UserResponseDTO response = UserResponseDTO.fromEntity(savedUser);
+        UserResponseDTO responseDTO = service.insert(request);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-				.buildAndExpand(savedUser.getId())
+				.buildAndExpand(responseDTO.getId())
                 .toUri();
-		return ResponseEntity.created(uri).body(response);
+		return ResponseEntity.created(uri).body(responseDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -59,10 +54,8 @@ public class UserController {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UserRequestDTO request) {
-        User user = request.toEntity();
-		User updateUser = service.update(id, user);
-        UserResponseDTO response = UserResponseDTO.fromEntity(updateUser);
-		return ResponseEntity.ok().body(response);
+		UserResponseDTO responseDTO = service.update(id, request);
+		return ResponseEntity.ok().body(responseDTO);
 	}
 	
 	@PostMapping(value = "/{id}/access-area/{area}")

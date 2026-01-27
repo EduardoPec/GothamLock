@@ -33,19 +33,6 @@ public class AccessLogResponseDTO implements Serializable {
         this.userId = userId;
     }
 
-    public static AccessLogResponseDTO fromEntity(AccessLog accessLog) {
-        return new AccessLogResponseDTO(
-                accessLog.getId(),
-                accessLog.getArea(),
-                accessLog.getType(),
-                accessLog.getResult(),
-                accessLog.getMoment(),
-                accessLog.getUser().getName(),
-                accessLog.getUser().getEmail(),
-                accessLog.getUser().getId()
-        );
-    }
-
     public Long getId() {
         return id;
     }
